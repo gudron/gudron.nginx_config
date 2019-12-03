@@ -1,0 +1,19 @@
+{{ ansible_managed | comment }}
+
+user {{ nginx.user }} {{ nginx.group }};
+worker_processes {{ nginx.worker_processes }};
+
+pid        /var/run/nginx.pid;
+daemon off;
+
+events {
+    worker_connections  {{ events_params.worker_connections }};
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    include  {{ nginx_conf_files_path }}*.conf;
+    include  {{ nginx_vhost_conf_file_path }}*.conf;
+}

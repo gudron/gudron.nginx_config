@@ -1,0 +1,7 @@
+logs_params:
+  error:
+    level: warn
+    path: /var/log/nginx/error.log
+  access:
+    level: main
+    path: /var/log/nginx/access.log

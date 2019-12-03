@@ -1,0 +1,29 @@
+---
+- name: Create directory for nginx resorces
+  file:
+    path: "{{ compiled_conf_files_path }}"
+    state: directory
+
+- name: Prepare nginx main config file
+  template:
+    src: "templates/nginx.conf.j2"
+    dest: "{{ compiled_conf_files_path | dirname | dirname }}/nginx.conf"
+    mode: "u=r,g=r"
+
+- name: Prepare nginx conf.d config files
+  template:
+    src: "templates/conf.d/{{ conf_file }}.conf.j2"
+    dest: "{{ compiled_conf_files_path }}/{{ conf_file }}.conf"
+    mode: "u=r,g=r"
+  loop:
+    - common
+    - client
+    - gzip
+    - ssl
+    - proxy
+    - fastcgi
+    - scgi
+    - uwsgi
+    - logs
+  loop_control:
+    loop_var: conf_file

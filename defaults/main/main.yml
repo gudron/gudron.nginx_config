@@ -1,0 +1,51 @@
+---
+nginx:
+  user: nginx
+  group: nginx
+  worker_processes: 4
+
+events_params:
+  worker_connections: 512
+
+conf_file_path: /any/path/to/vhost/config/files/directory/
+
+virlual_hosts_params:
+  example_host:
+    type: fastcgi
+    domain: example.com
+    chartset: utf-8
+    template_path: /path/to/template/host.j2
+    bootstrap: index.php
+    root: /usr/local/share/example_app/public_dir
+    headers:
+      X-Content-Type-Options: nosniff
+      Strict-Transport-Security: max-age=31536000; includeSubDomains
+      X-Frame-Options: SAMEORIGIN
+    backends:
+      - address: serv1.example.internal
+        port: 1010
+    fastcgi_params:
+      request_uri: $http_x_original_request if_not_empty
+    include_params:
+      - /etc/nginx/conf.d/include_file.conf
+
+  example_host2:
+    type: proxy
+    domain: example.com
+    cert_file_path: /path/to/cert/example_host2/example_host2.crt
+    private_key_file_path: /path/to/cert/example_host2/example_host2.key
+    hpkp: hpkp
+    chartset: utf-8
+    template_path: /path/to/template/host.j2
+    root: /usr/local/share/example_app/public_dir
+    headers:
+      X-Content-Type-Options: nosniff
+      Strict-Transport-Security: max-age=31536000; includeSubDomains
+      X-Frame-Options: SAMEORIGIN
+    backends:
+      - address: serv1.example.internal
+        port: 8080
+    fastcgi_params:
+      request_uri: $http_x_original_request if_not_empty
+    include_params:
+      - /etc/nginx/conf.d/include_file.conf

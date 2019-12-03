@@ -1,0 +1,7 @@
+{{ ansible_managed | comment }}
+
+# -- Logs
+log_format  main  '$remote_addr - $remote_user [$time_local] "$request" ' '$status $body_bytes_sent "$http_referer" ' '"$http_user_agent" "$http_x_forwarded_for"';
+
+error_log {{ logs_params.error.path }} {{ logs_params.error.level }};
+access_log {{ logs_params.access.path }} {{ logs_params.access.level }};

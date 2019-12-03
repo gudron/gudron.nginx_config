@@ -1,0 +1,9 @@
+{{ ansible_managed | comment }}
+
+# -- FastCGI
+fastcgi_buffering {{ fastcgi.buffering }};
+fastcgi_buffers {{ fastcgi.buffers_count }} {{ fastcgi.buffer_size }};
+fastcgi_buffer_size {{ fastcgi.buffer_size_first_response }};
+fastcgi_busy_buffers_size {{ fastcgi.busy_buffers_size }};
+fastcgi_connect_timeout {{ fastcgi.connect_timeout }};
+fastcgi_read_timeout {{ fastcgi.read_timeout }};

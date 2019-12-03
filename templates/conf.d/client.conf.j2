@@ -1,0 +1,8 @@
+{{ ansible_managed | comment }}
+
+# -- Client options
+client_max_body_size {{ client.max_body_size }};
+client_header_buffer_size {{ client.header_buffer_size }};
+large_client_header_buffers {{ client.large_header_buffers_count }} {{ client.large_header_buffer_size }};
+client_header_timeout {{ client.header_timeout }};
+client_body_timeout {{ client.body_timeout }};

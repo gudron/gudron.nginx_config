@@ -1,0 +1,9 @@
+{{ ansible_managed | comment }}
+
+# -- SSL
+ssl_protocols {{ ssl_params.protocols | join(' ') }};
+ssl_session_cache {{ ssl_params.session_cache }};
+ssl_prefer_server_ciphers {{ ssl_params.prefer_server_ciphers }};
+ssl_session_timeout {{ ssl_params.session_timeout }};
+ssl_dhparam {{ ssl_params.dhparam }};
+ssl_ciphers {{ (ssl_params.ciphers_allowed + ssl.ciphers_prohibited) | join(':') | quote }}

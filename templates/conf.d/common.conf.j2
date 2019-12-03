@@ -1,0 +1,15 @@
+{{ ansible_managed | comment }}
+
+sendfile {{ common.sendfile }};
+sendfile_max_chunk  {{ common.sendfile_max_chunk }};
+
+tcp_nopush {{ common.tcp_nopush }};
+tcp_nodelay {{ common.tcp_nodelay }};
+
+reset_timedout_connection {{ common.reset_timedout_connection }};
+
+server_tokens {{ common.server_tokens }};
+postpone_output {{ common.postpone_output }};
+
+keepalive_timeout {{ common.keepalive_timeout }};
+send_timeout {{ common.send_timeout }};

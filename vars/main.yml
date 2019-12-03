@@ -1,0 +1,55 @@
+---
+nginx_event_mechanism:
+  linux: "epoll"
+  freebsd: "kqueue"
+
+ssl:
+  ciphers_prohibited: "{{ ssl_params.ciphers_prohibited | map('regex_replace', '^(.*)$', '!\\1') | list }}"
+
+has_proxy_vhost: "{{ virlual_hosts_params.values() | selectattr('type', 'equalto', 'proxy') | list | length > 0 }}"
+has_fastcgi_vhost: "{{ virlual_hosts_params.values() | selectattr('type', 'equalto', 'fastcgi') | list | length > 0 }}"
+has_uwsgi_vhost: "{{ virlual_hosts_params.values() | selectattr('type', 'equalto', 'uwsgi') | list | length > 0 }}"
+has_scgi_vhost: "{{ virlual_hosts_params.values() | selectattr('type', 'equalto', 'scgi') | list | length > 0 }}"
+
+nginx_conf_files_path: /etc/nginx/conf.d/
+nginx_vhost_conf_file_path: "{{ nginx_conf_files_path }}sites-enabled/"
+
+compiled_conf_files_path: "{{ conf_file_path + nginx_conf_files_path}}"
+compiled_vhost_conf_files_path: "{{ conf_file_path + nginx_vhost_conf_file_path}}"
+
+fastcgi:
+  buffering: "{{ fastcgi_params.buffering if has_fastcgi_vhost else 'off' }}"
+  buffers_count: "{{ fastcgi_params.buffers_count if has_fastcgi_vhost else 2 }}"
+  buffer_size: "{{ fastcgi_params.buffer_size if has_fastcgi_vhost else '4k' }}"
+  buffer_size_first_response: "{{ fastcgi_params.buffer_size_first_response if has_fastcgi_vhost else 0 }}"
+  busy_buffers_size: "{{ fastcgi_params.busy_buffers_size if has_fastcgi_vhost else '4k' }}"
+  connect_timeout: "{{ fastcgi_params.connect_timeout if has_fastcgi_vhost else 0 }}"
+  read_timeout: "{{ fastcgi_params.read_timeout if has_fastcgi_vhost else 0 }}"
+
+proxy:
+  buffering: "{{ proxy_params.buffering if has_proxy_vhost else 'off' }}"
+  http_version: "{{ proxy_params.http_version }}"
+  buffers_count: "{{ proxy_params.buffers_count if has_proxy_vhost else 2 }}"
+  buffer_size: "{{ proxy_params.buffer_size if has_proxy_vhost else '4k' }}"
+  buffer_size_first_response: "{{ proxy_params.buffer_size_first_response if has_proxy_vhost else 0 }}"
+  busy_buffers_size: "{{ proxy_params.busy_buffers_size if has_proxy_vhost else '4k' }}"
+  connect_timeout: "{{ proxy_params.connect_timeout if has_proxy_vhost else 0 }}"
+  read_timeout: "{{ proxy_params.read_timeout if has_proxy_vhost else 0 }}"
+
+scgi:
+  buffering: "{{ scgi_params.buffering if has_scgi_vhost else 'off' }}"
+  buffers_count: "{{ scgi_params.buffers_count if has_scgi_vhost else 2 }}"
+  buffer_size: "{{ scgi_params.buffer_size if has_scgi_vhost else '4k' }}"
+  buffer_size_first_response: "{{ scgi_params.buffer_size_first_response if has_scgi_vhost else 0 }}"
+  busy_buffers_size: "{{ scgi_params.busy_buffers_size if has_scgi_vhost else '4k' }}"
+  connect_timeout: "{{ scgi_params.connect_timeout if has_scgi_vhost else 0 }}"
+  read_timeout: "{{ scgi_params.read_timeout if has_scgi_vhost else 0 }}"
+
+uwsgi:
+  buffering: "{{ uwsgi_params.buffering if has_uwsgi_vhost else 'off' }}"
+  buffers_count: "{{ uwsgi_params.buffers_count if has_uwsgi_vhost else 2 }}"
+  buffer_size_first_response: "{{ uwsgi_params.buffer_size_first_response if has_uwsgi_vhost else '4k' }}"
+  buffer_size: "{{ uwsgi_params.buffer_size if has_uwsgi_vhost else 0 }}"
+  busy_buffers_size: "{{ uwsgi_params.busy_buffers_size if has_uwsgi_vhost else '4k' }}"
+  connect_timeout: "{{ uwsgi_params.connect_timeout if has_uwsgi_vhost else 0 }}"
+  read_timeout: "{{ uwsgi_params.read_timeout if has_uwsgi_vhost else 0 }}"

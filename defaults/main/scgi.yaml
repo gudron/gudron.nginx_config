@@ -1,0 +1,8 @@
+scgi_params:
+  buffering: "on"
+  buffers_count: 4
+  buffer_size: 256k
+  buffer_size_first_response: 512k
+  busy_buffers_size: 512k
+  connect_timeout: 4m3s
+  read_timeout: 4m2s

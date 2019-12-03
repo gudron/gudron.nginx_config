@@ -1,0 +1,9 @@
+{{ ansible_managed | comment }}
+
+# -- uWSGI
+uwsgi_buffering {{ uwsgi.buffering }};
+uwsgi_buffers {{ uwsgi.buffers_count }} {{ uwsgi.buffer_size }};
+uwsgi_buffer_size {{ uwsgi.buffer_size_first_response }};
+uwsgi_busy_buffers_size {{ uwsgi.busy_buffers_size }};
+uwsgi_connect_timeout {{ uwsgi.connect_timeout }};
+uwsgi_read_timeout {{ uwsgi.read_timeout }};

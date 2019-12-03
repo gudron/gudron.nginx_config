@@ -1,0 +1,35 @@
+galaxy_info:
+  author: Alex V Kotelnikov 
+  description: Role create nginx config files
+  license: Apache
+
+  min_ansible_version: 2.4
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - 18.04
+        - 16.04
+    - name: Debian
+      versions:
+        - 8.0
+        - 9.0  
+
+  galaxy_tags:
+    - nginx config
+    - nginx virtual hosts config
+    - nginx
+    - web server
+    - web server config
+    
+
+allow_duplicates: true    
+dependencies:
+  - role: gudron.nginx_vhost
+    src: git@bitbucket.org:gdrn_cloud/gudron.nginx_vhost.git
+    scm: git
+    vars:
+      vhost_destintion_path: "{{ compiled_vhost_conf_files_path }}"
+      vhosts_params: "{{ virlual_hosts_params }}"
+    tags:
+      - nginx-vhost-config

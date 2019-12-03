@@ -1,0 +1,10 @@
+{{ ansible_managed | comment }}
+
+# -- Proxy
+proxy_buffering {{ proxy.buffering }};
+proxy_http_version {{ proxy.http_version }};
+proxy_buffers {{ proxy.buffers_count }} {{ proxy.buffer_size }};
+proxy_buffer_size {{ proxy.buffer_size }};
+proxy_busy_buffers_size {{ proxy.busy_buffers_size }};
+proxy_connect_timeout {{ proxy.connect_timeout }};
+proxy_read_timeout {{ proxy.read_timeout }};
