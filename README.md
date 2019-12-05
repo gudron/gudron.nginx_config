@@ -1,7 +1,7 @@
 gudron.nginx_conf
 =========
 
-Role-generator of nginx config files and [proxy role](https://github.com/gudron/gudron.nginx_vhost) for create virtual hosts config files.
+Role-generator of nginx config files and [proxy role](https://github.com/gudron/gudron.nginx_vhost) for creation virtual hosts config files.
 
 Role Variables
 --------------
