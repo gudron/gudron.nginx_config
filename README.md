@@ -1,38 +1,125 @@
-Role Name
+gudron.nginx_conf
 =========
 
-A brief description of the role goes here.
-
-Requirements
-------------
-
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Role-generator of nginx config files and [proxy role](https://github.com/gudron/gudron.nginx_vhost) for creation virtual hosts config files.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+### General variables
+
+  * `nginx: dict`
+    Set main nginx config files settings like `user`, `worker_processes` and etc.
+
+  * `events_params: dict`
+    Set event section settings in main nginx config files. Like `worker_connections`, `accept_mutex` and etc.
+
+  * `conf_file_path: string`
+    Nginx config directory path. In this directory will be rendered server config files. Path like that - /any/path/to/nginx/config/files/directory/
+
+  * `virlual_hosts_params: dict`
+    Dict of virtual hosts parameters. https://github.com/gudron/gudron.nginx_vhostLike `type`, `domain`, `chartset` and etc. That setting will be proxied to [gudron.nginx_vhost](https://github.com/gudron/gudron.nginx_vhost) dependent role.
+
+  * `client: dict`
+    Set client settings like `max_body_size`, `body_timeout` and etc.
+
+  * `common: dict`
+    Set common settings like `sendfile`, `server_tokens`, `keepalive_timeout` and etc.
+
+  * `proxy_params: dict`
+    Params for fastcgi settings like `buffers_count`, `buffer_size` and etc. This is variable for [Nginx proxy module settings](https://nginx.org/ru/docs/http/ngx_http_proxy_module.html).
+    
+    If passed virtual hosts does not contains proxy-type host values of `proxy_params` module will be setted to minimum possible values.
+
+    Supported variables: [defaults/main/proxy.yml](defaults/main/proxy.yml).
+
+  * `fastcgi_params: dict`
+    Params for fastcgi settings like `buffers_count`, `buffer_size` and etc. This is variable for [Nginx fastcgi module settings](http://nginx.org/ru/docs/http/ngx_http_fastcgi_module.html).
+    
+    If passed virtual hosts does not contains fastcgi-type host values of `fastcgi_params` module will be setted to minimum possible values.
+
+    Supported variables: [defaults/main/fastcgi.yml](defaults/main/fastcgi.yml).
+
+  * `uwsgi_params: dict`
+    Params for fastcgi settings like `buffers_count`, `buffer_size` and etc. This is variable for [Nginx uwsgi module settings](https://nginx.org/ru/docs/http/ngx_http_uwsgi_module.html).
+
+    If passed virtual hosts does not contains uwsgi-type host values of `uwsgi_params` module will be setted to minimum possible values.
+
+    Supported variables: [defaults/main/uwsgi.yml](defaults/main/uwsgi.yml).
+
+  * `scgi_params: dict`
+    Params for fastcgi settings like `buffers_count`, `buffer_size` and etc. This is variable for [Nginx scgi module settings](http://nginx.org/en/docs/http/ngx_http_scgi_module.html).
+
+    If passed virtual hosts does not contains scgi-type host values of `scgi_params` module will be setted to minimum possible values.
+
+    Supported variables: [defaults/main/scgi.yml](defaults/main/scgi.yml).
+
+  * `gzip_params: dict`
+    Params for gzip settings like `buffers_count`, `buffer_size` and etc. This is variable for [Nginx gzip module settings](https://nginx.org/ru/docs/http/ngx_http_gzip_module.html).
+
+    Supported variables: [defaults/main/gzip.yml](defaults/main/gzip.yml).
+
+  * `logs_params: dict`
+    Params for logs settings like `log_format`, `access_log` and etc. This is variable for [Nginx logs module settings](https://nginx.org/ru/docs/http/ngx_http_log_module.html).
+
+    Supported variables: [defaults/main/logs.yml](defaults/main/logs.yml).
+
+  * `ssl_params: dict`
+    Params for gzip settings like `ssl_buffer_size`, `ssl_ciphers` and etc. This is variable for [Nginx ssl module settings](https://nginx.org/ru/docs/http/ngx_http_ssl_module.html).
+
+    Supported variables: [defaults/main/ssl.yml](defaults/main/ssl.yml).
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+  * gudron.nginx_vhost - [Role-generator of nginx virtual host config files](https://github.com/gudron/gudron.nginx_vhost)
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
+    - hosts: example_project:&example_project_stage
+      any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+      gather_facts: false
+      vars:
+        ansible_connection: local
+        ansible_become: no
+        ansible_distribution: Debian
+            
       roles:
-         - { role: username.rolename, x: 42 }
+        - name: gudron.nginx_config
+          vars: 
+            conf_file_path: /any/path/to/nginx/config/files/directory/
+            virtual_hosts_destintion_path: /example/project/nginx/conf.d/sites-available/
+            proxy_params:
+              http_version: "1.0"
+              buffering: "on"
+              buffers_count: 4
+              buffer_size: 256k
+              buffer_size_first_response: 512k
+              busy_buffers_size: 512k
+              connect_timeout: 30s
+              read_timeout: 31s
+            virlual_hosts_params:
+              api:
+                port: 80
+                domain: api.example.com
+                type: proxy
+                root: /example/project/app/static/dir/
+                status_path: ngxstatus
+                headers:
+                  X-Content-Type-Options: nosniff
+                  Strict-Transport-Security: max-age=31536000; includeSubDomains
+                  X-Frame-Options: SAMEORIGIN
+                proxy_params:
+                  X-Real-IP: $remote_addr
+                include_params:
+                  - /etc/nginx/conf.d/include_file.conf
+                backends: 
+                  - address: api.example.internal
+                    port: 8080
+
 
 License
 -------
 
 BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).

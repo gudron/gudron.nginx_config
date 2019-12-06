@@ -7,7 +7,7 @@ nginx:
 events_params:
   worker_connections: 512
 
-conf_file_path: /any/path/to/vhost/config/files/directory/
+conf_file_path: /any/path/to/nginx/config/files/directory/
 
 virlual_hosts_params:
   example_host:
