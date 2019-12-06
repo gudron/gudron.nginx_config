@@ -1,7 +1,0 @@
-client:
-  max_body_size: "40m"
-  header_buffer_size: "1k"
-  header_timeout: "1m"
-  body_timeout: "1m"
-  large_header_buffers_count: 16 
-  large_header_buffer_size: "32k"
