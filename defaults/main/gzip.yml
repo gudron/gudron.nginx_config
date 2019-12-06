@@ -1,0 +1,22 @@
+gzip_params:
+  enabled: true
+  buffers_count: 2
+  buffer_size: "8k"
+  comp_level: 6
+  vary: "on"
+  static: "on"
+  http_version: "1.1"
+  types:
+    - "text/plain"
+    - "text/css"
+    - "text/javascript"
+    - "text/x-js"
+    - "text/xml"
+    - "application/javascript"
+    - "application/json"
+    - "application/x-javascript"
+    - "application/xml+rss"
+    - "application/xml"
+  min_length: 1024
+  disable: "msie6"
+  proxied: "off"

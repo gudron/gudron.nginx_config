@@ -1,0 +1,10 @@
+common:
+  sendfile: "on"
+  sendfile_max_chunk: 128k
+  tcp_nopush: "on"
+  tcp_nodelay: "on"
+  reset_timedout_connection: "on"
+  server_tokens: "off"
+  postpone_output: 2k
+  keepalive_timeout: 4m4s
+  send_timeout: 4m2s
