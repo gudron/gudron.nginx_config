@@ -59,6 +59,47 @@ Dependencies
 Example Playbook
 ----------------
 
+  - hosts: example_project:&example_project_stage
+    any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+    gather_facts: false
+    vars:
+      ansible_connection: local
+      ansible_become: no
+      ansible_distribution: Debian
+          
+    roles:
+      - name: gudron.nginx_config
+        vars: 
+          conf_file_path: /any/path/to/nginx/config/files/directory/
+          virtual_hosts_destintion_path: /example/project/nginx/conf.d/sites-available/
+          proxy_params:
+            http_version: "1.0"
+            buffering: "on"
+            buffers_count: 4
+            buffer_size: 256k
+            buffer_size_first_response: 512k
+            busy_buffers_size: 512k
+            connect_timeout: 30s
+            read_timeout: 31s
+          virlual_hosts_params:
+            api:
+              port: 80
+              domain: api.example.com
+              type: proxy
+              root: /example/project/app/static/dir/
+              status_path: ngxstatus
+              headers:
+                X-Content-Type-Options: nosniff
+                Strict-Transport-Security: max-age=31536000; includeSubDomains
+                X-Frame-Options: SAMEORIGIN
+              proxy_params:
+                X-Real-IP: $remote_addr
+              include_params:
+                - /etc/nginx/conf.d/include_file.conf
+              backends: 
+                - address: api.example.internal
+                  port: 8080
+
 
 License
 -------
