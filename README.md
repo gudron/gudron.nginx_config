@@ -31,43 +31,43 @@ Role Variables
     
     If passed virtual hosts does not contains proxy-type host values of `proxy_params` module will be setted to minimum possible values.
 
-    Supported variables: [defaults/proxy.yml](defaults/proxy.yml).
+    Supported variables: [defaults/main/proxy.yml](defaults/main/proxy.yml).
 
   * `fastcgi_params: dict`
     Params for fastcgi settings like `buffers_count`, `buffer_size` and etc. This is variable for [Nginx fastcgi module settings](http://nginx.org/ru/docs/http/ngx_http_fastcgi_module.html).
     
     If passed virtual hosts does not contains fastcgi-type host values of `fastcgi_params` module will be setted to minimum possible values.
 
-    Supported variables: [defaults/fastcgi.yml](defaults/fastcgi.yml).
+    Supported variables: [defaults/main/fastcgi.yml](defaults/main/fastcgi.yml).
 
   * `uwsgi_params: dict`
     Params for fastcgi settings like `buffers_count`, `buffer_size` and etc. This is variable for [Nginx uwsgi module settings](https://nginx.org/ru/docs/http/ngx_http_uwsgi_module.html).
 
     If passed virtual hosts does not contains uwsgi-type host values of `uwsgi_params` module will be setted to minimum possible values.
 
-    Supported variables: [defaults/uwsgi.yml](defaults/uwsgi.yml).
+    Supported variables: [defaults/main/uwsgi.yml](defaults/main/uwsgi.yml).
 
   * `scgi_params: dict`
     Params for fastcgi settings like `buffers_count`, `buffer_size` and etc. This is variable for [Nginx scgi module settings](http://nginx.org/en/docs/http/ngx_http_scgi_module.html).
 
     If passed virtual hosts does not contains scgi-type host values of `scgi_params` module will be setted to minimum possible values.
 
-    Supported variables: [defaults/scgi.yml](defaults/scgi.yml).
+    Supported variables: [defaults/main/scgi.yml](defaults/main/scgi.yml).
 
   * `gzip_params: dict`
     Params for gzip settings like `buffers_count`, `buffer_size` and etc. This is variable for [Nginx gzip module settings](https://nginx.org/ru/docs/http/ngx_http_gzip_module.html).
 
-    Supported variables: [defaults/gzip.yml](defaults/gzip.yml).
+    Supported variables: [defaults/main/gzip.yml](defaults/main/gzip.yml).
 
   * `logs_params: dict`
     Params for logs settings like `log_format`, `access_log` and etc. This is variable for [Nginx logs module settings](https://nginx.org/ru/docs/http/ngx_http_log_module.html).
 
-    Supported variables: [defaults/logs.yml](defaults/logs.yml).
+    Supported variables: [defaults/main/logs.yml](defaults/main/logs.yml).
 
   * `ssl_params: dict`
     Params for gzip settings like `ssl_buffer_size`, `ssl_ciphers` and etc. This is variable for [Nginx ssl module settings](https://nginx.org/ru/docs/http/ngx_http_ssl_module.html).
 
-    Supported variables: [defaults/ssl.yml](defaults/ssl.yml).
+    Supported variables: [defaults/main/ssl.yml](defaults/main/ssl.yml).
 
 Dependencies
 ------------
