@@ -26,7 +26,7 @@ allow_duplicates: true
 
 dependencies:
   - role: gudron.nginx_vhost
-    src: ggit@github.com:gudron/gudron.nginx_vhost.git
+    src: git@github.com:gudron/gudron.nginx_vhost.git
     scm: git
     vars:
       vhost_destintion_path: "{{ compiled_vhost_conf_files_path }}"
