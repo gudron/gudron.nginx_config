@@ -1,7 +1,7 @@
 galaxy_info:
-  author: Alex V Kotelnikov 
-  description: Role create nginx config files
-  license: Apache
+  author: Alex V Kotelnikov
+  description: Role-generator of nginx config files
+  license: Apache 2.0
 
   min_ansible_version: 2.4
 
@@ -13,7 +13,7 @@ galaxy_info:
     - name: Debian
       versions:
         - 8.0
-        - 9.0  
+        - 9.0
 
   galaxy_tags:
     - nginx config
@@ -21,12 +21,12 @@ galaxy_info:
     - nginx
     - web server
     - web server config
-    
 
-allow_duplicates: true    
+allow_duplicates: true
+
 dependencies:
   - role: gudron.nginx_vhost
-    src: git@bitbucket.org:gdrn_cloud/gudron.nginx_vhost.git
+    src: ggit@github.com:gudron/gudron.nginx_vhost.git
     scm: git
     vars:
       vhost_destintion_path: "{{ compiled_vhost_conf_files_path }}"

@@ -74,6 +74,23 @@ Dependencies
 
   * gudron.nginx_vhost - [Role-generator of nginx virtual host config files](https://github.com/gudron/gudron.nginx_vhost)
 
+Instalation
+-----------
+
+Add **gudron.nginx_config** role to your *requirements* file.
+
+```yaml
+  - src: git@github.com:gudron/gudron.nginx_config.git
+    scm: git
+    version: master
+```
+
+Install roles via **ansible-galaxy** tool.
+
+```bash
+ansible-galaxy install -p roles -r requirements.yml
+```
+
 Example Playbook
 ----------------
 
@@ -122,4 +139,4 @@ Example Playbook
 License
 -------
 
-BSD
+Apache 2.0
