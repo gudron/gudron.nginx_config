@@ -14,7 +14,7 @@ has_scgi_vhost: "{{ virlual_hosts_params.values() | selectattr('type', 'equalto'
 nginx_conf_files_path: /etc/nginx/conf.d/
 nginx_vhost_conf_file_path: "{{ nginx_conf_files_path }}sites-enabled/"
 
-compiled_conf_files_path: "{{ conf_file_path + nginx_conf_files_path}}"
+compiled_conf_files_path: "{{ conf_file_path + nginx_conf_files_path }}"
 compiled_vhost_conf_files_path: "{{ conf_file_path + nginx_vhost_conf_file_path}}"
 
 fastcgi:
