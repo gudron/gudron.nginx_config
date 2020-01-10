@@ -1,0 +1,14 @@
+- name: Check exists of Diffie-Hellman keys
+  stat:
+    path: "{{ compiled_conf_files_path }}/{{ ssl_params.dhparam }}"
+  register: df_key
+
+- name: Create directory for nginx resorces
+  file:
+    path: "{{ compiled_conf_files_path | dirname }}"
+    state: directory
+
+- name: Generate Diffie-Hellman keys
+  command: "openssl dhparam -dsaparam -out {{ compiled_conf_files_path }}/{{ ssl_params.dhparam }} 4096"
+  when:
+    - df_key.stat.exists == False
