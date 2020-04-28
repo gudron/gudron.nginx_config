@@ -7,7 +7,7 @@ gzip_comp_level {{ gzip_params.comp_level }};
 gzip_vary {{ gzip_params.vary }};
 gzip_static {{ gzip_params.static }};
 gzip_http_version {{ gzip_params.http_version }};
-gzip_types {{ gzip_params.types | join(',')}};
+gzip_types {{ gzip_params.types | join(' ')}};
 gzip_min_length {{ gzip_params.min_length }};
 gzip_disable {{ gzip_params.disable }};
 gzip_proxied {{ gzip_params.proxied }};
