@@ -5,7 +5,7 @@
 - name: Inlcude tasks
   include_tasks: "{{ task_name }}"
   loop:
-    - prepare_dhparam.yaml
-    - prepare_conf.yaml
+    - prepare_dhparam.yml
+    - prepare_conf.yml
   loop_control:
     loop_var: task_name
