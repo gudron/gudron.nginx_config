@@ -48,8 +48,8 @@ scgi:
 uwsgi:
   buffering: "{{ uwsgi_params.buffering if has_uwsgi_vhost else 'off' }}"
   buffers_count: "{{ uwsgi_params.buffers_count if has_uwsgi_vhost else 2 }}"
+  buffer_size: "{{ uwsgi_params.buffer_size if has_uwsgi_vhost else '4k' }}"
   buffer_size_first_response: "{{ uwsgi_params.buffer_size_first_response if has_uwsgi_vhost else '4k' }}"
-  buffer_size: "{{ uwsgi_params.buffer_size if has_uwsgi_vhost else 0 }}"
   busy_buffers_size: "{{ uwsgi_params.busy_buffers_size if has_uwsgi_vhost else '4k' }}"
   connect_timeout: "{{ uwsgi_params.connect_timeout if has_uwsgi_vhost else 0 }}"
   read_timeout: "{{ uwsgi_params.read_timeout if has_uwsgi_vhost else 0 }}"
