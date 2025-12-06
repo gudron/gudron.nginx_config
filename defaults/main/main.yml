@@ -38,6 +38,7 @@ virlual_hosts_params:
     chartset: utf-8
     template_path: /path/to/template/host.j2
     root: /usr/local/share/example_app/public_dir
+    letsencrypt_webroot_challange: Yes
     headers:
       X-Content-Type-Options: nosniff
       Strict-Transport-Security: max-age=31536000; includeSubDomains
