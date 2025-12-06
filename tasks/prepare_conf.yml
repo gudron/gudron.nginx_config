@@ -1,17 +1,17 @@
 ---
 - name: Create directory for nginx resorces
-  file:
+  ansible.builtin.file:
     path: "{{ compiled_conf_files_path }}"
     state: directory
 
 - name: Prepare nginx main config file
-  template:
+  ansible.builtin.template:
     src: "templates/nginx.conf.j2"
     dest: "{{ compiled_conf_files_path | dirname | dirname }}/nginx.conf"
     mode: "u=r,g=r"
 
 - name: Prepare nginx conf.d config files
-  template:
+  ansible.builtin.template:
     src: "templates/conf.d/{{ conf_file }}.conf.j2"
     dest: "{{ compiled_conf_files_path }}/{{ conf_file }}.conf"
     mode: "u=r,g=r"
@@ -27,3 +27,9 @@
     - logs
   loop_control:
     loop_var: conf_file
+
+- name: Prepare nginx conf.d mimetypes
+  ansible.builtin.copy:
+    content: "{{ mimetypes.template }}"
+    dest: "{{ compiled_conf_files_path | dirname | dirname }}/mime.types"
+    mode: '0644' # Optional: set file permissions
