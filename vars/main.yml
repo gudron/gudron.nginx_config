@@ -11,11 +11,11 @@ has_fastcgi_vhost: "{{ virlual_hosts_params.values() | selectattr('type', 'equal
 has_uwsgi_vhost: "{{ virlual_hosts_params.values() | selectattr('type', 'equalto', 'uwsgi') | list | length > 0 }}"
 has_scgi_vhost: "{{ virlual_hosts_params.values() | selectattr('type', 'equalto', 'scgi') | list | length > 0 }}"
 
-nginx_conf_files_path: /conf.d/
-nginx_vhost_conf_file_path: "{{ nginx_conf_files_path }}sites-enabled/"
+nginx_conf_files_path: "{{ conf_file_path }}/conf.d"
+nginx_vhost_conf_file_path: "{{ nginx_conf_files_path }}/sites-enabled"
 
-compiled_conf_files_path: "{{ conf_file_path + nginx_conf_files_path }}"
-compiled_vhost_conf_files_path: "{{ conf_file_path + nginx_vhost_conf_file_path}}"
+compiled_conf_files_path: "{{ nginx_conf_files_path }}"
+compiled_vhost_conf_files_path: "{{ nginx_vhost_conf_file_path }}"
 
 fastcgi:
   buffering: "{{ fastcgi_params.buffering if has_fastcgi_vhost else 'off' }}"

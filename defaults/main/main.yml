@@ -3,6 +3,7 @@ nginx:
   user: nginx
   group: nginx
   worker_processes: 4
+  daemon: off;
 
 events_params:
   worker_connections: 512
